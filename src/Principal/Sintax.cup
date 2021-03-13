@@ -1,0 +1,36 @@
+package Principal;
+
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+    private Symbol s;
+    
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+}
+:};
+
+terminal SELECT, FROM, WHERE, AND, OR, Todo, Igual, Diferente, Menor, Mayor, MenorIgual, MayorIgual, 
+Coma, PuntoComa, Identificador, Numero, ERROR;
+non terminal INICIO, SENTENCIA, DATOS, DATOS_DOS, CONDICION, CONDICION_DOS , REGLA, OPERACION;
+
+start with INICIO;
+
+INICIO ::= SENTENCIA;
+SENTENCIA ::= SELECT DATOS FROM Identificador CONDICION;
+DATOS ::= Todo | DATOS_DOS;
+DATOS_DOS ::= Identificador | Identificador Coma DATOS_DOS;
+CONDICION ::= WHERE REGLA CONDICION_DOS | PuntoComa;
+CONDICION_DOS ::= AND REGLA PuntoComa | OR REGLA PuntoComa | PuntoComa;
+REGLA ::= Identificador OPERACION Numero;
+OPERACION ::= Igual | Diferente | Menor | Mayor | MenorIgual | MayorIgual;
+
+
+
+
+
